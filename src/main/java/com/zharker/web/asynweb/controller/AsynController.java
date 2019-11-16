@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.WebAsyncTask;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeoutException;
 
@@ -18,11 +20,19 @@ public class AsynController {
     @Value("${asyn.task.timeout}")
     private long timeout;
 
+    @Value("${test.path}")
+    private String testpath;
+
     @Autowired
     private CountService countService;
 
     @GetMapping("/sync")
     public String sync() {
+
+        Path path = Paths.get(testpath);
+        path = path.toAbsolutePath();
+        log.debug("23333333: {}",path);
+
         return countService.count("sync");
     }
 
