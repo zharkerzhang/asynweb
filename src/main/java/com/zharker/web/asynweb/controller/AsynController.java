@@ -1,6 +1,7 @@
 package com.zharker.web.asynweb.controller;
 
 import com.zharker.web.asynweb.service.CountService;
+import com.zharker.web.asynweb.vo.VO;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,8 @@ import org.springframework.web.context.request.async.WebAsyncTask;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeoutException;
 
@@ -50,5 +53,13 @@ public class AsynController {
             throw new TimeoutException("call timeout");
         });
         return task;
+    }
+
+    @GetMapping("/vo")
+    public List<VO> getVO(){
+        List<VO> list = new ArrayList<>();
+        list.add(new VO("abc", 11,false));
+        list.add(new VO());
+        return list;
     }
 }
